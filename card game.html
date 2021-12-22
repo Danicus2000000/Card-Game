@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Twenty one</title>
+<link rel="stylesheet" type="text/css" href="main.css"/>
+<link rel="icon" href="img/ico.jpg"/>
+<script>
+    //To Do:
+    //Fix rounding error
+    //reset cards after bet
+    //comment code
+	var playertotal =0;//stores total of the player
+    var subtract=0;//counts turns and ensures subtraction only occurs from turn 2 onwards
+    var cardflipped=false;//checks whether a card has been flipped so the bet function can fire
+	function generatecard(tl,br, val) //a function to generate a resulting card
+	{
+        cardflipped=true;//allows betting to occur
+		var value =0, suit = 0;//sets up storage for card values
+		//1=A,1,2,3,4,5,6,7,8,9,10=J,11=Q,12=K
+		value= Math.floor(Math.random()*13) + 1;//1-13
+        if(document.getElementById(val).innerHTML!="Hit?")
+        {
+            switch (document.getElementById(val).innerHTML)
+            {
+                case "A":
+                    playertotal-=11;
+                    break;
+                case "J":
+                    playertotal-=10;
+                    break;
+                case "Q":
+                    playertotal-=10;
+                    break;
+                case "K":
+                    playertotal-=10;
+                    break;
+                default:
+                    playertotal-=Number(document.getElementById(val).innerHTML);
+                    break;
+            }
+        }
+        subtract+=1;
+		switch (value) 
+		{
+			case 1:
+				playertotal += 11;				
+                document.getElementById(val).innerHTML="A";
+				break;
+			case 11:
+				playertotal += 10;
+				document.getElementById(val).innerHTML="J";
+				break;
+			case 12:
+				playertotal +=10;
+				document.getElementById(val).innerHTML="Q";
+				break;
+			case 13:
+				playertotal +=10;
+				document.getElementById(val).innerHTML="K";
+				break;
+			default:
+				playertotal += value;
+				document.getElementById(val).innerHTML = value;
+				break;
+		}
+		//0=Heart, 1=Diamond, 2=Spade, 3=Club
+		suit = Math.floor(Math.random()*4);//0-3
+		switch (suit) 
+		{
+            case 0:
+				document.getElementById(tl).src="img/heart.png";
+				document.getElementById(br).src="img/heart.png";
+                break;
+			case 1:
+				document.getElementById(tl).src="img/diamond.png";
+				document.getElementById(br).src="img/diamond.png";
+                break;
+			case 2:
+				document.getElementById(tl).src="img/spade.png";
+				document.getElementById(br).src="img/spade.png";
+                break;
+			case 3:
+				document.getElementById(tl).src="img/club.png";
+				document.getElementById(br).src="img/club.png";
+                break;
+		}
+		document.getElementById("currentscore").innerHTML=playertotal;
+		if (playertotal > 21)
+		{
+			alert("Bust!")
+            document.location.reload(true)
+		}
+	}
+	function bet(player_score,money)
+	{
+        if (cardflipped==true)
+        {
+            var ammount_bet=prompt("Please enter the amount to bet:");
+            if (ammount_bet===null)
+            {
+                return;
+            }
+            else if (ammount_bet>parseFloat(document.getElementById(money).innerHTML))
+            {
+                alert("Cannot bet more money than you have!")
+            }
+            else if (ammount_bet==0)
+            {
+                alert("Cannot bet £0!")
+            }
+            else
+            {
+                //random number 11-21
+                var house_num=Math.floor(Math.random()*21)+1;
+                if(house_num>parseFloat(document.getElementById(player_score).innerHTML))
+                {
+                    document.getElementById(money).innerHTML=(parseFloat(document.getElementById(money).innerHTML)-parseFloat(ammount_bet)).toString();
+                    alert("House scored "+house_num+" you lose!")
+                }
+                else if(house_num<parseFloat(document.getElementById(player_score).innerHTML))
+                {
+                    document.getElementById(money).innerHTML=(parseFloat(document.getElementById(money).innerHTML)+parseFloat(ammount_bet)).toString();
+                    alert("House scored "+house_num+" you win!")
+                }
+                else
+                {
+                    alert("Both you and the house scored "+house_num+"!")
+                }
+            }
+        }
+        else
+        {
+            alert("Must flip a card!")
+        }
+	}
+</script>	
+</head>
+<body>
+	<div id="Player-Card-1" class="playingCard" onclick="generatecard('C1-tl-suit','C1-br-suit','C1-card-value')">
+    <img src="" id="C1-tl-suit" class="topSuit"/>
+    <p id="C1-card-value" class="cardValue">Hit?</p>
+    <img src="" id="C1-br-suit" class="botSuit"/>
+    </div>
+    <div id="Player-Card-2" class="playingCard" onclick="generatecard('C2-tl-suit','C2-br-suit','C2-card-value')">
+    <img src="" id="C2-tl-suit" class="topSuit"/>
+    <p id="C2-card-value" class="cardValue">Hit?</p>
+    <img src="" id="C2-br-suit" class="botSuit"/>
+    </div>
+    <div id="Player-Card-3" class="playingCard" onclick="generatecard('C3-tl-suit','C3-br-suit','C3-card-value')">
+    <img src="" id="C3-tl-suit" class="topSuit"/>
+    <p id="C3-card-value" class="cardValue">Hit?</p>
+    <img src="" id="C3-br-suit" class="botSuit"/>
+    </div>
+    <div id="Player-Card-4" class="playingCard" onclick="generatecard('C4-tl-suit','C4-br-suit','C4-card-value')">
+    <img src="" id="C4-tl-suit" class="topSuit"/>
+    <p id="C4-card-value" class="cardValue">Hit?</p>
+    <img src="" id="C4-br-suit" class="botSuit"/>
+    </div>
+    <div id="Player-Card-5" class="playingCard" onclick="generatecard('C5-tl-suit','C5-br-suit','C5-card-value')">
+    <img src="" id="C5-tl-suit" class="topSuit"/>
+    <p id="C5-card-value" class="cardValue">Hit?</p>
+    <img src="" id="C5-br-suit" class="botSuit"/>
+    </div>
+    <div class="score">
+        <p id="scorelabel">Total:</p>
+    	<p id="currentscore">00</p>
+    </div>
+    <div class="currency">
+    	<p id="currencylabel">Money: £</p>
+        <p id="money">1.00</p>
+    </div>
+    <button id="bet_btn" type="button" onclick="bet('currentscore','money')">Bet!</button>
+</body>
+</html>
