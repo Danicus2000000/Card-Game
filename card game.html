@@ -93,8 +93,11 @@
 		}
 		document.getElementById("currentscore").innerHTML = playertotal;
 		if (playertotal > 21) {
-			alert("Bust!");
-            resetCards();
+			// Show the card first, then notify the user after a short delay
+			setTimeout(function() {
+				alert("Bust!");
+				resetCards();
+			}, 100);
 			return;
 		}
 	}
