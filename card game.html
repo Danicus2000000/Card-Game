@@ -6,10 +6,9 @@
 <link rel="stylesheet" type="text/css" href="main.css"/>
 <link rel="icon" href="img/ico.jpg"/>
 <script>
-    //To Do:
-    //Fix rounding error
-    //reset cards after bet
-    //comment code
+	// playertotal: stores the player's current total score
+	// subtract: counts turns and ensures subtraction only occurs from turn 2 onwards
+	// cardflipped: checks whether a card has been flipped so the bet function can fire
 	var playertotal =0;//stores total of the player
     var subtract=0;//counts turns and ensures subtraction only occurs from turn 2 onwards
     var cardflipped=false;//checks whether a card has been flipped so the bet function can fire
@@ -92,6 +91,26 @@
             document.location.reload(true)
 		}
 	}
+
+	// Always show money with 2 decimal places
+	function updateMoneyDisplay(moneyId) {
+		var money = parseFloat(document.getElementById(moneyId).innerHTML);
+		document.getElementById(moneyId).innerHTML = money.toFixed(2);
+	}
+
+	// Resets all cards to initial state after a bet
+	function resetCards() {
+		for (var i = 1; i <= 5; i++) {
+			document.getElementById(`C${i}-tl-suit`).src = "";
+			document.getElementById(`C${i}-br-suit`).src = "";
+			document.getElementById(`C${i}-card-value`).innerHTML = "Hit?";
+		}
+		playertotal = 0;
+		subtract = 0;
+		cardflipped = false;
+		document.getElementById("currentscore").innerHTML = "00";
+	}
+
 	function bet(player_score,money)
 	{
         if (cardflipped==true)
@@ -127,6 +146,9 @@
                 {
                     alert("Both you and the house scored "+house_num+"!")
                 }
+            // After bet, reset cards and update money display
+            resetCards();
+            updateMoneyDisplay(money);
             }
         }
         else

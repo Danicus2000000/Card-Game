@@ -12,73 +12,45 @@ html
 	position:relative;
 	width: 300px;
 	height: 500px;
-	display: inline-block
+	display: inline-block;
+    vertical-align: top;
 }
-#C1-card-value
-{
-	font-size: 36px;
-    position:fixed;
+
+#C1-card-value, #C2-card-value, #C3-card-value, #C4-card-value, #C5-card-value {
+    font-size: 36px;
+    position: absolute;
     top: 180px;
-    left:150px;
+    left: 110px;
+    width: 80px;
+    text-align: center;
 }
-#C2-card-value
-{
-	font-size: 36px;
-    position:fixed;
-    top: 180px;
-    left:470px;
+#C1-tl-suit, #C2-tl-suit, #C3-tl-suit, #C4-tl-suit, #C5-tl-suit,
+#C1-br-suit, #C2-br-suit, #C3-br-suit, #C4-br-suit, #C5-br-suit {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    pointer-events: none;
 }
-#C3-card-value
-{
-	font-size: 36px;
-    position:fixed;
-    top: 180px;
-    left:770px;
+
+#C1-tl-suit[src*=".png"], #C2-tl-suit[src*=".png"], #C3-tl-suit[src*=".png"], #C4-tl-suit[src*=".png"], #C5-tl-suit[src*=".png"],
+#C1-br-suit[src*=".png"], #C2-br-suit[src*=".png"], #C3-br-suit[src*=".png"], #C4-br-suit[src*=".png"], #C5-br-suit[src*=".png"] {
+    opacity: 1;
+    pointer-events: auto;
+    display: block;
 }
-#C4-card-value
-{
-	font-size: 36px;
-    position:fixed;
-    top: 180px;
-    left:1085px;
-}
-#C5-card-value
-{
-	font-size: 36px;
-    position:fixed;
-    top: 180px;
-    left:1400px;
-}
-#C1-br-suit
-{
-    position:fixed;
-    top:399px;
-    left:205px;
-}
-#C2-br-suit
-{
-    position:fixed;
-    top:399px;
-    left:517px;
-}
-#C3-br-suit
-{
-    position:fixed;
-    top:399px;
-    left:829px;
-}
-#C4-br-suit
-{
-    position:fixed;
-    top:399px;
-    left:1141px;
-}
-#C5-br-suit
-{
-    position:fixed;
-    top:399px;
-    left:1453px;
-}
+
+#C1-tl-suit { top: 20px; left: 20px; }
+#C2-tl-suit { top: 20px; left: 20px; }
+#C3-tl-suit { top: 20px; left: 20px; }
+#C4-tl-suit { top: 20px; left: 20px; }
+#C5-tl-suit { top: 20px; left: 20px; }
+
+#C1-br-suit { bottom: 20px; right: 20px; }
+#C2-br-suit { bottom: 20px; right: 20px; }
+#C3-br-suit { bottom: 20px; right: 20px; }
+#C4-br-suit { bottom: 20px; right: 20px; }
+#C5-br-suit { bottom: 20px; right: 20px; }
 #scorelabel,#currentscore
 {
     display:inline-block;
